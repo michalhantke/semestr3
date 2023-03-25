@@ -4,6 +4,8 @@ const autoprefixer = require('gulp-autoprefixer');
 const imagemin = require('gulp-imagemin');
 const fileInclude = require('gulp-file-include');
 const browserSync = require('browser-sync').create();
+const gulp = require('gulp');
+const htmlmin = require('gulp-htmlmin');
 
 const path = {
     root: "./dist/",
@@ -16,7 +18,9 @@ const path = {
 
 const css = function() {
     return gulp.src(path.cssSrc)
-        .pipe(sass().on("error", sass.logError))
+        .pipe(sass({
+            outputStyle: 'compressed'
+            }).on("error", sass.logError))
         .pipe(autoprefixer())
         .pipe(gulp.dest(path.cssDist))
 };
@@ -34,6 +38,12 @@ const html = function() {
             basepath: "@file"
         }))
         .pipe(gulp.dest(path.root))
+}
+
+const minhtml = function() {
+    return gulp.src(path.htmlSrc)
+        .pipe(htmlmin({ collapseWhitespace: true }))
+        .pipe(gulp.dest(path.root));
 }
 
 const server = function(cb) { 
@@ -58,4 +68,4 @@ const watch = function() {
 
 exports.default = gulp.series( html, css, server, watch );
 
-exports.production = gulp.series( imageMin, html, css );
+exports.production = gulp.series( imageMin, minhtml, html, css );
