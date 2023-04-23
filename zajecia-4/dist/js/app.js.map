@@ -1,0 +1,1 @@
+{"version":3,"file":"app.js","mappings":"yBAEAA,QAAQC,IAAI,YCFW,G","sources":["webpack://zajecia-2/./src/js/app.js","webpack://zajecia-2/./src/js/components/new-component.js"],"sourcesContent":["import { userAge } from \"./components/new-component\";\n\nconsole.log(\"userAge: \", userAge);","export const userAge = 30;"],"names":["console","log"],"sourceRoot":""}
